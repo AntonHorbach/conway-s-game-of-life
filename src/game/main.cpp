@@ -1,7 +1,11 @@
 #include <iostream>
 
-int main() {
-    std::cout << "Hello, world!" << std::endl;
+#include "Game.hpp"
 
-    return 0;
+int main() {
+    Game game;
+
+    game.init("game of life", 300, 150, 640, 480);
+
+    return game.exec();
 }
