@@ -2,6 +2,7 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
+TextureManager Game::textureManager;
 
 Game::Game(): running(false) {}
 
@@ -32,6 +33,8 @@ bool Game::init(const char* title, size_t x, size_t y, size_t w, size_t h)
         SDL_SetRenderDrawColor(renderer, 123, 123, 123, 255);
     }
 
+    textureManager.loadTexture("./assets/cell.jpg", "cell");
+
     return res;
 }
 
@@ -50,8 +53,13 @@ void Game::handleEvents() {
 }
 
 void Game::draw() {
+    static int x = 0;
+    static int y = 0;
+
     SDL_RenderClear(renderer);
 
+    textureManager.drawTexture("cell", {0, 0, 3, 3}, 
+                                {x++ % 640, y++ % 480, 30, 30});
 
     SDL_RenderPresent(renderer);
 }
