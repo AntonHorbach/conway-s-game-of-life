@@ -1,5 +1,8 @@
 #include "Game.hpp"
 
+#include "TextureManager.hpp"
+#include "cell.hpp"
+
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 TextureManager Game::textureManager;
@@ -55,11 +58,11 @@ void Game::handleEvents() {
 void Game::draw() {
     static int x = 0;
     static int y = 0;
+    static Cell cell("cell");
 
     SDL_RenderClear(renderer);
 
-    textureManager.drawTexture("cell", {0, 0, 3, 3}, 
-                                {x++ % 640, y++ % 480, 30, 30});
+    cell.draw(x++ % 640, y++ % 480, 10);
 
     SDL_RenderPresent(renderer);
 }

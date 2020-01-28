@@ -5,9 +5,8 @@
 
 #include <SDL2/SDL.h>
 
-#include "TextureManager.hpp"
-
 class TextureManager;
+class Cell;
 
 class Game {
     SDL_Window* window;
