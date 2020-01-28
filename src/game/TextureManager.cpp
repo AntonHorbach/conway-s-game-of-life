@@ -23,7 +23,9 @@ bool TextureManager::loadTexture(const std::string& path,
         res = false;
     }
 
-    textures.insert({key, makeSharedTexture(texture)});
+    if(res) {
+        textures.insert({key, makeSharedTexture(texture)});
+    }
 
     return res;
 }
