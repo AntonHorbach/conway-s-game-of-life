@@ -9,12 +9,22 @@ size_t Cell::count() {
         neighbor <= (size_t)NEIGHBOR::BOT_LEFT;
         ++neighbor)
     {
-        if(neighbors[neighbor] != nullptr) {
+        if(neighbors[neighbor] != nullptr && neighbors[neighbor]->isAlive())
+        {
             ++res;
         }
     }
 
     return res;
+}
+
+void Cell::setNeighbors(const std::initializer_list<Cell*>& neighbors) {
+    size_t i = 0;
+
+    for(Cell* n : neighbors) {
+        this->neighbors[i++] = n;
+        if(i == 8) break;
+    }
 }
 
 void Cell::draw(int x, int y, int scale) {
@@ -23,6 +33,14 @@ void Cell::draw(int x, int y, int scale) {
                                         {0, 0, 1, 1},
                                         {x, y, scale * 3, scale * 3});
     }
+}
+
+void Cell::reborn() {
+    alive ^= true;
+}
+
+bool Cell::isAlive() {
+    return alive;
 }
 
 void Cell::update() {

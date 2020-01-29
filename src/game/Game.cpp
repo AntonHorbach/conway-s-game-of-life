@@ -7,13 +7,13 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 TextureManager Game::textureManager;
 
-Cell cell("cell");
-
 Game::Game(): running(false) {}
 
 bool Game::init(const char* title, size_t x, size_t y, size_t w, size_t h)
 {
     bool res = true;
+
+    universe = new Universe(h / 9, w / 9);
 
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cout << SDL_GetError() << std::endl;
@@ -52,25 +52,22 @@ void Game::handleEvents() {
             break;
         
         default:
-            cell.handleEvents();
+            universe->handleEvents();
             break;
         }
     }
 }
 
 void Game::draw() {
-    static int x = 0;
-    static int y = 0;
-
     SDL_RenderClear(renderer);
 
-    cell.draw(x++ % 640, y++ % 480, 10);
+    universe->draw();
 
     SDL_RenderPresent(renderer);
 }
 
 void Game::update() {
-    cell.update();
+    universe->update();
 }
 
 int Game::exec() {
@@ -84,6 +81,8 @@ int Game::exec() {
 }
 
 Game::~Game() {
+    delete universe;
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

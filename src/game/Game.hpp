@@ -5,11 +5,14 @@
 
 #include <SDL2/SDL.h>
 
+#include "Universe.hpp"
+
 class TextureManager;
 class Cell;
 
 class Game {
     SDL_Window* window;
+    Universe* universe;
     bool running;
 
     void handleEvents();

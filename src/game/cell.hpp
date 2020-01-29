@@ -14,13 +14,16 @@ enum class NEIGHBOR: size_t {
 class Cell {
     std::string texture_id;
     Cell* neighbors[8];
-    bool alive = true;
+    bool alive = false;
     bool orthogenesis = false;
 
 public:
     Cell(std::string&& texture_id);
     
     size_t count();
+    void reborn();
+    bool isAlive();
+    void setNeighbors(const std::initializer_list<Cell*>& neighbors);
     void draw(int x, int y, int scale);
     void handleEvents();
     void update();
