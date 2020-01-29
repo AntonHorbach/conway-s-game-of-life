@@ -7,6 +7,8 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 TextureManager Game::textureManager;
 
+Cell cell("cell");
+
 Game::Game(): running(false) {}
 
 bool Game::init(const char* title, size_t x, size_t y, size_t w, size_t h)
@@ -50,6 +52,7 @@ void Game::handleEvents() {
             break;
         
         default:
+            cell.handleEvents();
             break;
         }
     }
@@ -58,7 +61,6 @@ void Game::handleEvents() {
 void Game::draw() {
     static int x = 0;
     static int y = 0;
-    static Cell cell("cell");
 
     SDL_RenderClear(renderer);
 
@@ -68,7 +70,7 @@ void Game::draw() {
 }
 
 void Game::update() {
-    std::cout << "Updating" << std::endl;
+    cell.update();
 }
 
 int Game::exec() {
