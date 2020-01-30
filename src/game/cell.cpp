@@ -36,7 +36,7 @@ void Cell::draw(int x, int y, int scale) {
 }
 
 void Cell::reborn() {
-    alive ^= true;
+    new_state ^= true;
 }
 
 bool Cell::isAlive() {
@@ -48,18 +48,20 @@ void Cell::update() {
         switch(count()) {
         case 2: break;
         case 3: {
-            if(!alive) {
-                alive = true;
-            }
+            new_state = true;
 
             break;
         }
         default: {
-            alive = false;
+            new_state = false;
             break;
         }
         }
     }
+}
+
+void Cell::commitState() {
+    alive = new_state;
 }
 
 void Cell::handleEvents() {

@@ -15,6 +15,7 @@ class Cell {
     std::string texture_id;
     Cell* neighbors[8];
     bool alive = false;
+    bool new_state = false;
     bool orthogenesis = false;
 
 public:
@@ -22,6 +23,7 @@ public:
     
     size_t count();
     void reborn();
+    void commitState();
     bool isAlive();
     void setNeighbors(const std::initializer_list<Cell*>& neighbors);
     void draw(int x, int y, int scale);

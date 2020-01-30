@@ -121,6 +121,12 @@ void Universe::update() {
             cell->update();
         }
     }
+
+    for(auto& row : cells) {
+        for(Cell* cell : row) {
+            cell->commitState();
+        }
+    }
 }
 
 void Universe::draw() {
