@@ -71,10 +71,21 @@ void Game::update() {
 }
 
 int Game::exec() {
+    const size_t fps = 30;
+    const size_t frame_delay = 1000 / fps;
+
     while(running) {
+        Uint32 frame_start = SDL_GetTicks();
+
         draw();
         handleEvents();
         update();
+
+        int frame_time = SDL_GetTicks() - frame_start;
+
+        if(frame_delay > frame_time) {
+            SDL_Delay(frame_delay - frame_time);
+        }
     }
 
     return 0;
