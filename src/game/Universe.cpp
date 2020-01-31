@@ -2,7 +2,9 @@
 
 #include "cell.hpp"
 
-Universe::Universe(size_t h, size_t w) {
+Universe::Universe(size_t h, size_t w, std::string&& texture_id_)
+                    :texture_id(texture_id_)
+{
     cells.reserve(h);
 
     for(size_t i = 0; i < h; ++i) {
@@ -95,8 +97,8 @@ void Universe::handleEvents() {
     switch (Game::event.type)
     {
     case SDL_MOUSEBUTTONDOWN: {
-        size_t x = Game::event.button.x / 9;
-        size_t y = Game::event.button.y / 9;
+        size_t x = Game::event.button.x / 10;
+        size_t y = Game::event.button.y / 10;
 
         if(x >= 0 && x < cells[0].size() && y >= 0 && y < cells.size()) {
             cells[y][x]->reborn();
@@ -132,7 +134,11 @@ void Universe::update() {
 void Universe::draw() {
     for(size_t i = 0; i < cells.size(); ++i) {
         for(size_t j = 0; j < cells[i].size(); ++j) {
-            cells[i][j]->draw(j * 9, i * 9, 9 / 3);
+
+            Game::textureManager.drawTexture(texture_id, {0, 0, 27, 27},
+                                        {(int)(j * 10), (int)(i * 10), 10, 10});
+            
+            cells[i][j]->draw(j * 10, i * 10, (10 - 1) / 3);
         }
     }
 }

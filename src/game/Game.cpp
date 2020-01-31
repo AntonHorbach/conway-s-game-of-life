@@ -13,7 +13,7 @@ bool Game::init(const char* title, size_t x, size_t y, size_t w, size_t h)
 {
     bool res = true;
 
-    universe = new Universe(h / 9, w / 9);
+    universe = new Universe(h / 10, w / 10, "bg_cell");
 
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cout << SDL_GetError() << std::endl;
@@ -39,6 +39,7 @@ bool Game::init(const char* title, size_t x, size_t y, size_t w, size_t h)
     }
 
     textureManager.loadTexture("./assets/cell.jpg", "cell");
+    textureManager.loadTexture("./assets/bg_cell.jpg", "bg_cell");
 
     return res;
 }
